@@ -39,7 +39,7 @@ const animate = ({matrix, frames, interval=300, index=0, loop=Number.MAX_VALUE, 
   }
 }
 
-const SLACK_TOKEN = 'xoxb-184630054964-c6tttlbzQ4L5iRyX8utwj5Xi'
+const SLACK_TOKEN = process.env.SLACK_TOKEN
 
 const sendSlackMessage = msg => fetch(`https://slack.com/api/chat.postMessage?channel=coffee&text=${encodeURIComponent(msg)}&username=coffeebot&link_names=true&token=${SLACK_TOKEN}`)
 
