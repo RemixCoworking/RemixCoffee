@@ -39,7 +39,9 @@ const animate = ({matrix, frames, interval=300, index=0, loop=Number.MAX_VALUE, 
   }
 }
 
-const sendSlackMessage = msg => fetch(`https://slack.com/api/chat.postMessage?channel=coffee&text=${encodeURIComponent(msg)}&username=coffeebot&link_names=true&token=xoxb-184630054964-XNlZeZ6QWEFu6dVMTls7mEF3`)
+const SLACK_TOKEN = 'xoxb-184630054964-c6tttlbzQ4L5iRyX8utwj5Xi'
+
+const sendSlackMessage = msg => fetch(`https://slack.com/api/chat.postMessage?channel=coffee&text=${encodeURIComponent(msg)}&username=coffeebot&link_names=true&token=${SLACK_TOKEN}`)
 
 const sendCoffeeStartedSlackMessage = () => {
   board.info("sendCoffeeStartedSlackMessage", "");
