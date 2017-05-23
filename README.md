@@ -2,6 +2,7 @@
 
 Be warned when coffee is ready !
 
+use [johnny-five](https://github.com/rwaldron/johnny-five)
 
 ## SSH
 

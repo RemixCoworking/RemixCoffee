@@ -10,7 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "ip": "^1.1.5",
     "johnny-five": "^0.10.13",
+    "node-fetch": "^1.7.0",
     "raspi-io": "^8.0.1"
   }
 }

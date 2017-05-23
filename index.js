@@ -1,4 +1,4 @@
-
+var ip = require('ip');
 var fs = require("fs");
 var os = require("os");
 var path = require("path");
@@ -8,7 +8,7 @@ var five = require("johnny-five");
 if (os.platform() !== 'darwin') {
   var Raspi = require("raspi-io");
 }
-
+//
 
 const board = new five.Board({ io: Raspi && new Raspi() || null });
 
@@ -39,17 +39,17 @@ const animate = ({matrix, frames, interval=300, index=0, loop=Number.MAX_VALUE, 
   }
 }
 
+const sendSlackMessage = msg => fetch(`https://slack.com/api/chat.postMessage?channel=coffee&text=${encodeURIComponent(msg)}&username=coffeebot&link_names=true&token=xoxb-184630054964-XNlZeZ6QWEFu6dVMTls7mEF3`)
+
 const sendCoffeeStartedSlackMessage = () => {
   board.info("sendCoffeeStartedSlackMessage", "");
-  const text = encodeURIComponent("Somebody started making coffee!")
-  fetch("https://slack.com/api/chat.postMessage?channel=coffee&text=Somebody%20started%20making%20coffee!&username=coffeebot&link_names=true&token=xoxb-184630054964-XNlZeZ6QWEFu6dVMTls7mEF3")
+  sendSlackMessage("Somebody started making coffee!")
 }
 
 const sendCoffeeDoneSlackMessage = () => {
   board.info("sendCoffeeDoneSlackMessage", "");
   coffeeTimeout = null
-  const text = encodeURIComponent("@channel coffee is ready")
-  fetch("https://slack.com/api/chat.postMessage?channel=coffee&text=%40channel%20coffee%20is%20ready&username=coffeebot&link_names=true&token=xoxb-184630054964-XNlZeZ6QWEFu6dVMTls7mEF3")
+  sendSlackMessage("@channel coffee is ready")
 }
 
 const reset = (ledMatrix) => () => {
@@ -67,6 +67,10 @@ const reset = (ledMatrix) => () => {
 }
 
 board.on("ready", function() {
+
+  board.info("IP", ip.address());
+  sendSlackMessage(`:wave: My IP is : ${ip.address()}`)
+
   var bigRedButton = new five.Button({
     pin: 25,
     isPullup: true,
